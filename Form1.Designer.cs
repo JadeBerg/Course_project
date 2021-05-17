@@ -31,6 +31,7 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.Min = new System.Windows.Forms.TextBox();
             this.Max = new System.Windows.Forms.TextBox();
@@ -46,9 +47,21 @@
             this.f_2 = new System.Windows.Forms.RadioButton();
             this.f_3 = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.C = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.C = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.f_10 = new System.Windows.Forms.RadioButton();
+            this.f_9 = new System.Windows.Forms.RadioButton();
+            this.f_8 = new System.Windows.Forms.RadioButton();
+            this.f_7 = new System.Windows.Forms.RadioButton();
+            this.f_6 = new System.Windows.Forms.RadioButton();
+            this.f_4 = new System.Windows.Forms.RadioButton();
+            this.f_5 = new System.Windows.Forms.RadioButton();
+            this.f_11 = new System.Windows.Forms.RadioButton();
+            this.f_12 = new System.Windows.Forms.RadioButton();
+            this.f_13 = new System.Windows.Forms.RadioButton();
+            this.f_14 = new System.Windows.Forms.RadioButton();
+            this.f_15 = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.Graph)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -128,15 +141,20 @@
             this.Graph.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.Graph.Legends.Add(legend1);
-            this.Graph.Location = new System.Drawing.Point(174, 12);
+            this.Graph.Location = new System.Drawing.Point(288, 12);
             this.Graph.Name = "Graph";
             this.Graph.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
             series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series1.Legend = "Legend1";
             series1.Name = "Series1";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series2.Legend = "Legend1";
+            series2.Name = "Series2";
             this.Graph.Series.Add(series1);
-            this.Graph.Size = new System.Drawing.Size(688, 480);
+            this.Graph.Series.Add(series2);
+            this.Graph.Size = new System.Drawing.Size(688, 514);
             this.Graph.TabIndex = 8;
             this.Graph.Text = "chart1";
             // 
@@ -144,7 +162,7 @@
             // 
             this.f_1.AutoSize = true;
             this.f_1.ForeColor = System.Drawing.Color.Yellow;
-            this.f_1.Location = new System.Drawing.Point(37, 36);
+            this.f_1.Location = new System.Drawing.Point(9, 36);
             this.f_1.Name = "f_1";
             this.f_1.Size = new System.Drawing.Size(66, 21);
             this.f_1.TabIndex = 9;
@@ -157,9 +175,9 @@
             // 
             this.Op.BackColor = System.Drawing.Color.DimGray;
             this.Op.ForeColor = System.Drawing.Color.Yellow;
-            this.Op.Location = new System.Drawing.Point(12, 458);
+            this.Op.Location = new System.Drawing.Point(12, 492);
             this.Op.Name = "Op";
-            this.Op.Size = new System.Drawing.Size(159, 34);
+            this.Op.Size = new System.Drawing.Size(270, 34);
             this.Op.TabIndex = 10;
             this.Op.Text = "Построить";
             this.Op.UseVisualStyleBackColor = false;
@@ -169,7 +187,7 @@
             // 
             this.f_2.AutoSize = true;
             this.f_2.ForeColor = System.Drawing.Color.Yellow;
-            this.f_2.Location = new System.Drawing.Point(37, 63);
+            this.f_2.Location = new System.Drawing.Point(9, 63);
             this.f_2.Name = "f_2";
             this.f_2.Size = new System.Drawing.Size(90, 21);
             this.f_2.TabIndex = 11;
@@ -182,7 +200,7 @@
             // 
             this.f_3.AutoSize = true;
             this.f_3.ForeColor = System.Drawing.Color.Yellow;
-            this.f_3.Location = new System.Drawing.Point(37, 90);
+            this.f_3.Location = new System.Drawing.Point(9, 90);
             this.f_3.Name = "f_3";
             this.f_3.Size = new System.Drawing.Size(73, 21);
             this.f_3.TabIndex = 12;
@@ -206,30 +224,10 @@
             this.groupBox1.ForeColor = System.Drawing.Color.Yellow;
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(156, 197);
+            this.groupBox1.Size = new System.Drawing.Size(154, 197);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ввод данных";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.f_3);
-            this.groupBox2.Controls.Add(this.f_2);
-            this.groupBox2.Controls.Add(this.f_1);
-            this.groupBox2.ForeColor = System.Drawing.Color.Yellow;
-            this.groupBox2.Location = new System.Drawing.Point(12, 215);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(156, 237);
-            this.groupBox2.TabIndex = 14;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Функции";
-            // 
-            // C
-            // 
-            this.C.Location = new System.Drawing.Point(40, 149);
-            this.C.Name = "C";
-            this.C.Size = new System.Drawing.Size(100, 22);
-            this.C.TabIndex = 8;
             // 
             // label5
             // 
@@ -240,12 +238,200 @@
             this.label5.TabIndex = 9;
             this.label5.Text = "c";
             // 
+            // C
+            // 
+            this.C.Location = new System.Drawing.Point(40, 149);
+            this.C.Name = "C";
+            this.C.Size = new System.Drawing.Size(100, 22);
+            this.C.TabIndex = 8;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.f_15);
+            this.groupBox2.Controls.Add(this.f_14);
+            this.groupBox2.Controls.Add(this.f_13);
+            this.groupBox2.Controls.Add(this.f_12);
+            this.groupBox2.Controls.Add(this.f_11);
+            this.groupBox2.Controls.Add(this.f_10);
+            this.groupBox2.Controls.Add(this.f_9);
+            this.groupBox2.Controls.Add(this.f_8);
+            this.groupBox2.Controls.Add(this.f_7);
+            this.groupBox2.Controls.Add(this.f_6);
+            this.groupBox2.Controls.Add(this.f_4);
+            this.groupBox2.Controls.Add(this.f_5);
+            this.groupBox2.Controls.Add(this.f_3);
+            this.groupBox2.Controls.Add(this.f_2);
+            this.groupBox2.Controls.Add(this.f_1);
+            this.groupBox2.ForeColor = System.Drawing.Color.Yellow;
+            this.groupBox2.Location = new System.Drawing.Point(12, 215);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(270, 271);
+            this.groupBox2.TabIndex = 14;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Функции";
+            // 
+            // f_10
+            // 
+            this.f_10.AutoSize = true;
+            this.f_10.ForeColor = System.Drawing.Color.Yellow;
+            this.f_10.Location = new System.Drawing.Point(155, 63);
+            this.f_10.Name = "f_10";
+            this.f_10.Size = new System.Drawing.Size(73, 21);
+            this.f_10.TabIndex = 19;
+            this.f_10.TabStop = true;
+            this.f_10.Text = "y = a^x";
+            this.f_10.UseVisualStyleBackColor = true;
+            this.f_10.CheckedChanged += new System.EventHandler(this.f_10_CheckedChanged);
+            // 
+            // f_9
+            // 
+            this.f_9.AutoSize = true;
+            this.f_9.ForeColor = System.Drawing.Color.Yellow;
+            this.f_9.Location = new System.Drawing.Point(155, 36);
+            this.f_9.Name = "f_9";
+            this.f_9.Size = new System.Drawing.Size(95, 21);
+            this.f_9.TabIndex = 18;
+            this.f_9.TabStop = true;
+            this.f_9.Text = "y = loga(x)";
+            this.f_9.UseVisualStyleBackColor = true;
+            this.f_9.CheckedChanged += new System.EventHandler(this.f_9_CheckedChanged);
+            // 
+            // f_8
+            // 
+            this.f_8.AutoSize = true;
+            this.f_8.ForeColor = System.Drawing.Color.Yellow;
+            this.f_8.Location = new System.Drawing.Point(9, 225);
+            this.f_8.Name = "f_8";
+            this.f_8.Size = new System.Drawing.Size(79, 21);
+            this.f_8.TabIndex = 17;
+            this.f_8.TabStop = true;
+            this.f_8.Text = "y = ln(x)";
+            this.f_8.UseVisualStyleBackColor = true;
+            this.f_8.CheckedChanged += new System.EventHandler(this.f_8_CheckedChanged);
+            // 
+            // f_7
+            // 
+            this.f_7.AutoSize = true;
+            this.f_7.ForeColor = System.Drawing.Color.Yellow;
+            this.f_7.Location = new System.Drawing.Point(9, 198);
+            this.f_7.Name = "f_7";
+            this.f_7.Size = new System.Drawing.Size(70, 21);
+            this.f_7.TabIndex = 16;
+            this.f_7.TabStop = true;
+            this.f_7.Text = "y = a/x";
+            this.f_7.UseVisualStyleBackColor = true;
+            this.f_7.CheckedChanged += new System.EventHandler(this.f_7_CheckedChanged);
+            // 
+            // f_6
+            // 
+            this.f_6.AutoSize = true;
+            this.f_6.ForeColor = System.Drawing.Color.Yellow;
+            this.f_6.Location = new System.Drawing.Point(9, 171);
+            this.f_6.Name = "f_6";
+            this.f_6.Size = new System.Drawing.Size(85, 21);
+            this.f_6.TabIndex = 15;
+            this.f_6.TabStop = true;
+            this.f_6.Text = "y = x^1/2";
+            this.f_6.UseVisualStyleBackColor = true;
+            this.f_6.CheckedChanged += new System.EventHandler(this.f_6_CheckedChanged);
+            // 
+            // f_4
+            // 
+            this.f_4.AutoSize = true;
+            this.f_4.ForeColor = System.Drawing.Color.Yellow;
+            this.f_4.Location = new System.Drawing.Point(9, 117);
+            this.f_4.Name = "f_4";
+            this.f_4.Size = new System.Drawing.Size(128, 21);
+            this.f_4.TabIndex = 14;
+            this.f_4.TabStop = true;
+            this.f_4.Text = "y = ax^2 + b + c";
+            this.f_4.UseVisualStyleBackColor = true;
+            this.f_4.CheckedChanged += new System.EventHandler(this.f_4_CheckedChanged);
+            // 
+            // f_5
+            // 
+            this.f_5.AutoSize = true;
+            this.f_5.ForeColor = System.Drawing.Color.Yellow;
+            this.f_5.Location = new System.Drawing.Point(9, 144);
+            this.f_5.Name = "f_5";
+            this.f_5.Size = new System.Drawing.Size(73, 21);
+            this.f_5.TabIndex = 13;
+            this.f_5.TabStop = true;
+            this.f_5.Text = "y = x^3";
+            this.f_5.UseVisualStyleBackColor = true;
+            this.f_5.CheckedChanged += new System.EventHandler(this.f_5_CheckedChanged);
+            // 
+            // f_11
+            // 
+            this.f_11.AutoSize = true;
+            this.f_11.ForeColor = System.Drawing.Color.Yellow;
+            this.f_11.Location = new System.Drawing.Point(155, 90);
+            this.f_11.Name = "f_11";
+            this.f_11.Size = new System.Drawing.Size(73, 21);
+            this.f_11.TabIndex = 20;
+            this.f_11.TabStop = true;
+            this.f_11.Text = "y = e^x";
+            this.f_11.UseVisualStyleBackColor = true;
+            this.f_11.CheckedChanged += new System.EventHandler(this.f_11_CheckedChanged);
+            // 
+            // f_12
+            // 
+            this.f_12.AutoSize = true;
+            this.f_12.ForeColor = System.Drawing.Color.Yellow;
+            this.f_12.Location = new System.Drawing.Point(155, 117);
+            this.f_12.Name = "f_12";
+            this.f_12.Size = new System.Drawing.Size(86, 21);
+            this.f_12.TabIndex = 21;
+            this.f_12.TabStop = true;
+            this.f_12.Text = "y = sin(x)";
+            this.f_12.UseVisualStyleBackColor = true;
+            this.f_12.CheckedChanged += new System.EventHandler(this.f_12_CheckedChanged);
+            // 
+            // f_13
+            // 
+            this.f_13.AutoSize = true;
+            this.f_13.ForeColor = System.Drawing.Color.Yellow;
+            this.f_13.Location = new System.Drawing.Point(155, 144);
+            this.f_13.Name = "f_13";
+            this.f_13.Size = new System.Drawing.Size(90, 21);
+            this.f_13.TabIndex = 22;
+            this.f_13.TabStop = true;
+            this.f_13.Text = "y = cos(x)";
+            this.f_13.UseVisualStyleBackColor = true;
+            this.f_13.CheckedChanged += new System.EventHandler(this.f_13_CheckedChanged);
+            // 
+            // f_14
+            // 
+            this.f_14.AutoSize = true;
+            this.f_14.ForeColor = System.Drawing.Color.Yellow;
+            this.f_14.Location = new System.Drawing.Point(155, 171);
+            this.f_14.Name = "f_14";
+            this.f_14.Size = new System.Drawing.Size(80, 21);
+            this.f_14.TabIndex = 23;
+            this.f_14.TabStop = true;
+            this.f_14.Text = "y = tg(x)";
+            this.f_14.UseVisualStyleBackColor = true;
+            this.f_14.CheckedChanged += new System.EventHandler(this.f_14_CheckedChanged);
+            // 
+            // f_15
+            // 
+            this.f_15.AutoSize = true;
+            this.f_15.ForeColor = System.Drawing.Color.Yellow;
+            this.f_15.Location = new System.Drawing.Point(155, 198);
+            this.f_15.Name = "f_15";
+            this.f_15.Size = new System.Drawing.Size(87, 21);
+            this.f_15.TabIndex = 24;
+            this.f_15.TabStop = true;
+            this.f_15.Text = "y = ctg(x)";
+            this.f_15.UseVisualStyleBackColor = true;
+            this.f_15.CheckedChanged += new System.EventHandler(this.f_15_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(874, 504);
+            this.ClientSize = new System.Drawing.Size(988, 538);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Op);
@@ -281,6 +467,18 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox C;
+        private System.Windows.Forms.RadioButton f_5;
+        private System.Windows.Forms.RadioButton f_4;
+        private System.Windows.Forms.RadioButton f_6;
+        private System.Windows.Forms.RadioButton f_7;
+        private System.Windows.Forms.RadioButton f_8;
+        private System.Windows.Forms.RadioButton f_9;
+        private System.Windows.Forms.RadioButton f_10;
+        private System.Windows.Forms.RadioButton f_11;
+        private System.Windows.Forms.RadioButton f_12;
+        private System.Windows.Forms.RadioButton f_15;
+        private System.Windows.Forms.RadioButton f_14;
+        private System.Windows.Forms.RadioButton f_13;
     }
 }
 
