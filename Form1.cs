@@ -17,6 +17,7 @@ namespace Graph_Function
         {
             InitializeComponent();
             f_1.Checked = true;
+            Zr.Enabled = false;
         }
         private void Input(TextBox textBox, object sender, KeyPressEventArgs e) // Проверка ввода
         {
@@ -129,21 +130,7 @@ namespace Graph_Function
             A.ReadOnly = true;
             C.ReadOnly = true;
         }
-
-        private void f_14_CheckedChanged(object sender, EventArgs e)
-        {
-            B.ReadOnly = true;
-            A.ReadOnly = true;
-            C.ReadOnly = true;
-        }
-
-        private void f_15_CheckedChanged(object sender, EventArgs e)
-        {
-            B.ReadOnly = true;
-            A.ReadOnly = true;
-            C.ReadOnly = true;
-        }
-        private void A_KeyPress(object sender, KeyPressEventArgs e) // ввод B
+        private void A_KeyPress(object sender, KeyPressEventArgs e) // ввод А
         {
             try
             {
@@ -163,7 +150,7 @@ namespace Graph_Function
             {
             }
         }
-        private void Max_KeyPress(object sender, KeyPressEventArgs e) // ввод B
+        private void Max_KeyPress(object sender, KeyPressEventArgs e) // ввод Max
         {
             try
             {
@@ -173,7 +160,7 @@ namespace Graph_Function
             {
             }
         }
-        private void Min_KeyPress(object sender, KeyPressEventArgs e) // ввод B
+        private void Min_KeyPress(object sender, KeyPressEventArgs e) // ввод Min
         {
             try
             {
@@ -184,28 +171,37 @@ namespace Graph_Function
             }
         }
 
-        private void Op_Click(object sender, EventArgs e)
+        private void Op_Click(object sender, EventArgs e) // Кнопка для построения графика
         {
             try
             {
+                Zr.Enabled = true; 
                 double min = double.Parse(Min.Text);
                 double max = double.Parse(Max.Text);
-                if (min > max || min >= 0 || max < 0)
+                Graph.Series[0].Points.Clear();
+                Graph.Series[1].Points.Clear();
+                Graph.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+                Graph.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+                Graph.ChartAreas[0].AxisY.Maximum = max;
+                Graph.ChartAreas[0].AxisX.Maximum = max;
+                Graph.ChartAreas[0].AxisY.Minimum = min;
+                Graph.ChartAreas[0].AxisX.Minimum = min;
+                Graph.ChartAreas[0].AxisX.Crossing = 0;
+                Graph.ChartAreas[0].AxisY.Crossing = 0;
+                if (min > max || min >= 0 || max < 0 || max > 40 || min < -40)
                 {
                     MessageBox.Show("Некоректный ввод!");
+                    Graph.Series[0].Points.Clear();
+                    Graph.Series[1].Points.Clear();
+                }
+                else if(max > 40 || min < -40)
+                {
+                    MessageBox.Show("Границы должны быть не меньше -40 и не больше 40!");
+                    Graph.Series[0].Points.Clear();
+                    Graph.Series[1].Points.Clear();
                 }
                 else if (min < max || min < 0 || max > 0)
                 {
-                    Graph.Series[0].Points.Clear();
-                    Graph.Series[1].Points.Clear();
-                    Graph.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
-                    Graph.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
-                    Graph.ChartAreas[0].AxisY.Maximum = max;
-                    Graph.ChartAreas[0].AxisX.Maximum = max;
-                    Graph.ChartAreas[0].AxisY.Minimum = min;
-                    Graph.ChartAreas[0].AxisX.Minimum = min;
-                    Graph.ChartAreas[0].AxisX.Crossing = 0;
-                    Graph.ChartAreas[0].AxisY.Crossing = 0;
                     if (f_1.Checked) // y = ax
                     {
                         double a = double.Parse(A.Text);
@@ -258,34 +254,38 @@ namespace Graph_Function
                     if (f_7.Checked) // y = a/x and y = -(a/x)
                     {
                         double a = double.Parse(A.Text);
-                        Graph.Series[0].Name = "y = a/x";
-                        Graph.Series[1].Name = "y = -(a/x)";
+                        if (a > 0)
+                        {
+                            Graph.Series[0].Name = "y = a/x (x>0)";
+                            Graph.Series[1].Name = "y = a/x (x<0)";
+                        }
+                        if (a < 0)
+                        {
+                            Graph.Series[0].Name = "y = -a/x (x>0)";
+                            Graph.Series[1].Name = "y = -a/x (x<0)";
+                        }
                         for (double i = 0.1; i < max; i+=0.1)
                         {
                             Graph.Series[0].Points.AddXY(i, a/i);
                             Graph.Series[1].Points.AddXY(-i, -(a / i));
                         }
                     }
-                    if (f_8.Checked) // y = ln(x) and y = -ln(x)
+                    if (f_8.Checked) // y = ln(x)
                     {
                         Graph.Series[0].Name = "y = ln(x)";
-                        Graph.Series[1].Name = "y = -ln(x)";
                         for (double i = 1e-3; i < 1e3; i+=0.1)
                         {
                             Graph.Series[0].Points.AddXY(i, Math.Log(i));
-                            Graph.Series[1].Points.AddXY(-i, -Math.Log(i));
                         }
                     }
-                    if (f_9.Checked) // y = loga(x) and -loga(x)
+                    if (f_9.Checked) // y = loga(x)
                     {
                         int a = int.Parse(A.Text);
                         Graph.Series[0].Name = "y = loga(x)";
-                        Graph.Series[1].Name = "y = -loga(x)";
                         if (a > 0) {
                             for (double i = 1e-3; i < 1e3; i += 0.1)
                             {
                                 Graph.Series[0].Points.AddXY(i, Math.Log(i, a));
-                                Graph.Series[1].Points.AddXY(i, -Math.Log(i, a));
                             }
                         }
                         else
@@ -294,60 +294,46 @@ namespace Graph_Function
                             MessageBox.Show("Число a не должно быть отрицательным!");
                         }
                     }
-                    if (f_10.Checked) // y = a^x НЕ РАБОТАЕТ С ОТРИЦАТЕЛЬНЫМИ ЧИСЛАМИ
+                    if (f_10.Checked) // y = a^x
                     {
-                        int a = int.Parse(A.Text);
+                        double a = double.Parse(A.Text);
                         Graph.Series[0].Name = "y = a^x";
-                        for (double i = min; i < max; i += 0.1)
+                        if (a > 1) {
+                            for (double i = min; i < max; i+=0.1)
+                            {
+                                Graph.Series[0].Points.AddXY(i, Math.Pow(a,i));
+                            }
+                        }
+                        else if(a<0)
                         {
-                            double k = Math.Pow(a, i);
-                            Graph.Series[0].Points.AddXY(i, k);
+                            for (double i = min; i < max; i += 0.1)
+                            {
+                                Graph.Series[0].Points.AddXY(i, -Math.Pow(-a, i));
+                            }
                         }
                     }
                     if (f_11.Checked) // y = e^x
                     {
                         Graph.Series[0].Name = "y = e^x";
-                        Graph.Series[1].Name = "y = -e^x";
                         for (double i = min; i < max; i+=0.1)
                         {
                             Graph.Series[0].Points.AddXY(i, Math.Exp(i));
-                            Graph.Series[1].Points.AddXY(i, -Math.Exp(i));
                         }
                     }
                     if (f_12.Checked) // y = sin(x)
                     {
                         Graph.Series[0].Name = "y = sin(x)";
-                        Graph.Series[1].Name = "y = -sin(x)";
                         for (double i = min; i < max; i += 0.1)
                         {
                             Graph.Series[0].Points.AddXY(i, Math.Sin(i));
-                            Graph.Series[1].Points.AddXY(i, -Math.Sin(i));
                         }
                     }
                     if (f_13.Checked) // y = cos(x)
                     {
                         Graph.Series[0].Name = "y = cos(x)";
-                        Graph.Series[1].Name = "y = -cos(x)";
                         for (double i = min; i < max; i += 0.1)
                         {
                             Graph.Series[0].Points.AddXY(i, Math.Cos(i));
-                            Graph.Series[1].Points.AddXY(i, -Math.Cos(i));
-                        }
-                    }
-                    if (f_14.Checked) // y = tg(x) НЕ ГОТОВ
-                    {
-                        Graph.Series[0].Name = "y = tg(x)";
-                        for (double i = min; i < max; i+=0.1)
-                        {
-                            Graph.Series[0].Points.AddXY(i, Math.Tan(i));
-                        }
-                    }
-                    if (f_15.Checked) // y = ctg(x) НЕ ГОТОВ
-                    {
-                        Graph.Series[0].Name = "y = ctg(x)";
-                        for (double i = min; i < max; i += 0.1)
-                        {
-                            Graph.Series[0].Points.AddXY(i, 1/Math.Tan(i));
                         }
                     }
                 }
@@ -356,6 +342,178 @@ namespace Graph_Function
             {
                 MessageBox.Show("Некоректный ввод!");
             }
+        }
+        private void Clear_Click(object sender, EventArgs e) // Кнопка очищения
+        {
+            Graph.Series[0].Points.Clear();
+            Graph.Series[1].Points.Clear();
+            Clear.Enabled = false;
+        }
+        private void Save_png_Click(object sender, EventArgs e) // Кнопка для сохранения картинки в png
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Title = "Сохранить изображение как ...";
+            sfd.Filter = "*.png|*.png";
+            sfd.AddExtension = true;
+            sfd.FileName = "graphicImage";
+            if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                Graph.SaveImage(sfd.FileName, ChartImageFormat.Png);
+            }
+        }
+        private void Zr_Click(object sender, EventArgs e) // Кнопка отзеркаливания
+        {
+            double min = double.Parse(Min.Text);
+            double max = double.Parse(Max.Text);
+            Graph.Series[1].Points.Clear();
+            Graph.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+            Graph.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+            Graph.ChartAreas[0].AxisY.Maximum = max;
+            Graph.ChartAreas[0].AxisX.Maximum = max;
+            Graph.ChartAreas[0].AxisY.Minimum = min;
+            Graph.ChartAreas[0].AxisX.Minimum = min;
+            Graph.ChartAreas[0].AxisX.Crossing = 0;
+            Graph.ChartAreas[0].AxisY.Crossing = 0;
+
+            if (f_1.Checked) // y = ax
+            {
+                double a = double.Parse(A.Text);
+                Graph.Series[1].Name = "-y";
+                for (double i = min; i <= max; i += 0.1)
+                {
+                    Graph.Series[1].Points.AddXY(i, -(a * i));
+                }
+            }
+            if (f_2.Checked) // y = ax + b
+            {
+
+                double a = double.Parse(A.Text);
+                double b = double.Parse(B.Text);
+                Graph.Series[1].Name = "-y";
+                for (double i = min; i <= max; i += 0.1)
+                {
+                    Graph.Series[1].Points.AddXY(i, -(a * i + b));
+                }
+            }
+            if (f_3.Checked) // y = x^2
+            {
+                Graph.Series[1].Name = "-y";
+                for (double i = min; i <= max; i += 0.1)
+                    Graph.Series[1].Points.AddXY(i, -(i * i));
+            }
+            if (f_4.Checked) // y = ax^2 + bx + c
+            {
+                double a = double.Parse(A.Text);
+                double b = double.Parse(B.Text);
+                double c = double.Parse(C.Text);
+                Graph.Series[1].Name = "-y";
+                for (double i = min; i <= max; i += 0.1)
+                {
+                    Graph.Series[1].Points.AddXY(i, -(a * Math.Pow(i, 2) + b * i + c));
+                }
+            }
+            if (f_5.Checked) // y = x^3
+            {
+                Graph.Series[1].Name = "-y";
+                for (double i = min; i <= max; i += 0.1)
+                    Graph.Series[1].Points.AddXY(i, -(i * i * i));
+            }
+            if (f_6.Checked) // y = x^1/2
+            {
+                Graph.Series[1].Name = "-y";
+                for (double i = min; i <= max; i += 0.1)
+                    Graph.Series[1].Points.AddXY(i, -Math.Pow(i, 0.5));
+            }
+            if (f_7.Checked) // y = a/x and y = -(a/x)
+            {
+                double a = double.Parse(A.Text);
+                Graph.Series[0].Points.Clear();
+                Graph.Series[1].Points.Clear();
+                if (a > 0)
+                {
+                    Graph.Series[0].Name = "-y = a/x (x>0)";
+                    Graph.Series[1].Name = "-y = a/x (x<0)";
+                }
+                if (a < 0)
+                {
+                    Graph.Series[0].Name = "-y = -a/x (x>0)";
+                    Graph.Series[1].Name = "-y = -a/x (x<0)";
+                }
+                for (double i = 0.1; i < max; i += 0.1)
+                {
+                    Graph.Series[1].Points.AddXY(-i, (a / i));
+                    Graph.Series[0].Points.AddXY(i, -(a / i));
+                }
+            }
+            if (f_8.Checked) // y = -ln(x)
+            {
+                Graph.Series[1].Name = "-y";
+                for (double i = 1e-3; i < 1e3; i += 0.1)
+                {
+                    Graph.Series[1].Points.AddXY(i, -Math.Log(i));
+                }
+            }
+            if (f_9.Checked) // y = -loga(x)
+            {
+                int a = int.Parse(A.Text);
+                Graph.Series[1].Name = "-y";
+                if (a > 0)
+                {
+                    for (double i = 1e-3; i < 1e3; i += 0.1)
+                    {
+                        Graph.Series[1].Points.AddXY(i, -Math.Log(i, a));
+                    }
+                }
+                else
+                {
+                    Graph.Series[0].Points.Clear();
+                    MessageBox.Show("Число a не должно быть отрицательным!");
+                }
+            }
+            if (f_10.Checked) // y = a^x
+            {
+                double a = double.Parse(A.Text);
+                Graph.Series[1].Name = "-y";
+                if (a > 1)
+                {
+                    for (double i = min; i < max; i += 0.1)
+                    {
+                        Graph.Series[1].Points.AddXY(i, -Math.Pow(a, i));
+                    }
+                }
+                else if (a < 0)
+                {
+                    for (double i = min; i < max; i += 0.1)
+                    {
+                        Graph.Series[1].Points.AddXY(i, Math.Pow(-a, i));
+                    }
+                }
+            }
+            if (f_11.Checked) // y = -e^x
+            {
+                Graph.Series[1].Name = "-y";
+                for (double i = min; i < max; i += 0.1)
+                {
+                    Graph.Series[1].Points.AddXY(i, -Math.Exp(i));
+                }
+            }
+            if (f_12.Checked) // y = -sin(x)
+            {
+                Graph.Series[1].Name = "-y";
+                for (double i = min; i < max; i += 0.1)
+                {
+                    Graph.Series[1].Points.AddXY(i, -Math.Sin(i));
+                }
+            }
+            if (f_13.Checked) // y = -cos(x)
+            {
+                Graph.Series[1].Name = "-y";
+                for (double i = min; i < max; i += 0.1)
+                {
+                    Graph.Series[1].Points.AddXY(i, -Math.Cos(i));
+                }
+            }
+            Zr.Enabled = false;
         }
     }
 }
